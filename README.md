@@ -62,3 +62,22 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   - HTML 문서는 ```< , >``` 같은 특수 문자를 기반으로 정의한다. 따라서 뷰 템플릿으로 HTML 화면을 생성할 떄는 출력하는 데이터에 이러한 특수 문자가 있는 것을 주의해야 한다.
   - 타임리프가 제공하는 ```th:text```, ```[[...]]``` 는 기본적으로 이스케이프를 제공한다.
   - 언이스케이프하려면 ```th:utext```, ```[()]``` 로 사용하면 된다.
+
+### 변수 - SpringEL
+타임리프에서 변수를 사용할 때는 변수 표현식을 사용
+- 변수 표현식: ```${...}```
+- 그리고 이 변수 표현식에는 SpringEL이라는 스프링이 제공하는 표현식을 사용할 수 있다.
+#### Object
+  - ```user.username```: user의 username을 프로퍼티 접근 -> ```user.getUsername()```과 같음
+  - ```user['username']```: 위와 같음
+  - ```user.getUsername()```: user의 getUsername()을 직접 호출
+#### List
+- ```users[0].username```: List에서 첫번째 회원을 찾고 username을 프로퍼티 접근 -> ```user[0].getUsername()```과 같음
+- ```user[0]['username']```: 위와 같음
+- ```user[0].getUsername()```: 리스트에서 첫번째 회원을 찾고 메서드를 직접 호출
+#### Map
+- ```userMap['userA'].username```: Map에서 userA를 찾고 username을 프로퍼티 접근 -> ```userMap['userA'].getUsername()```과 같음
+- ```userMap['userA']['username']```: 위와 같음
+- ```userMap['userA'].getUsername()```: Map에서 userA를 찾고 메서드를 직접 호출
+#### 지역 변수
+- ```th:with``` 사용
