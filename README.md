@@ -92,3 +92,19 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   - HTTP 요청 파라미터 접근 ```${param.xxx}```
   - HTTP 세션 접근 ```${session.xxx}```
   - 스프링 빈 접근 ```${@helloBean.hello('Spring!')}```
+
+### 유틸리티 객체와 날짜
+- ```#message``` : 메시지, 국제화 처리
+- ```#uris``` : URI 이스케이프 지원
+- ```#dates``` : ```java.util.Date``` 서식 지원
+- ```#calendars``` : ```java.util.Calendar``` 서식 지원
+- ```#temporals``` : 자바 8 날짜 서식 지원
+- ```#numbers``` : 숫자 서식 지원
+- ```#strings``` : 문자 관련 편의 기능
+- ```#objects``` : 객체 관련 기능 제공
+- ```#bools``` : boolean 관련 기능 제공
+- ```#arrays``` : 배열 관련 기능 제공
+- ```#lists, #sets, #maps``` : 컬렉션 관련 기능 제공
+- ```#ids``` : 아이디 처리 관련 기능 제공
+#### 자바 8 날짜
+타임리프에서 자바 8 날짜인 ```LocalDate, LocalDateTime, Instant``` 를 사용하려면 추가 라이브러리(```thymeleaf-extra-java8time```)가 필요하지만, 스프링부트 타임리프를 사용하면 자동으로 추가
