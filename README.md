@@ -81,3 +81,14 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - ```userMap['userA'].getUsername()```: Map에서 userA를 찾고 메서드를 직접 호출
 #### 지역 변수
 - ```th:with``` 사용
+
+### 기본 객체들
+- ```${#request}```
+- ```${#response}```
+- ```${#session}```
+- ```${#servletContext}```
+- ```${#locale}```
+- 편의 객체
+  - HTTP 요청 파라미터 접근 ```${param.xxx}```
+  - HTTP 세션 접근 ```${session.xxx}```
+  - 스프링 빈 접근 ```${@helloBean.hello('Spring!')}```
