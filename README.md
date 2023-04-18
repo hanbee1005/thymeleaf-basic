@@ -125,3 +125,18 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   - ```th:classappend``` : class 속성에 자연스럽게 추가한다.
 - checked 처리
   - 타임리프의 ```th:checked``` 는 값이 ```false``` 인 경우 ```cheched``` 속성 자체를 제거
+
+### 자바스크립트 인라인
+- 텍스트 랜더링
+  - ```var username = [[${user.username}]];```
+    - 인라인 사용 전 -> ```var username = userA;```
+    - 인라인 사용 후 -> ```var username = "userA";```
+- 자바스크립트 내추럴 템플릿
+  - ```var username = /*[[${user.username}]]*/ "test username";```
+    - 인라인 사용 전 -> ```var username = /*userA*/ "test username";```
+    - 인라인 사용 후 -> ```var username = "userA";```
+- 객체
+  - JSON 으로 자동 변환
+  - ```var user = [[${user}]];```
+    - 인라인 사용 전 -> ```var user = BasicController.User(username=userA, age=10);```
+    - 인라인 사용 후 -> ```var user = {"username": "userA", "age": 10};```
