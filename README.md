@@ -115,3 +115,13 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 ### 리터럴 (Literals)
 - 타임리프에서 문자 리터럴은 항상 작은 따옴표로 감싸야함 (공백없이 이어지는 경우 생략 가능)
 
+### 속성 값 설정
+- 속성 설정
+  - ```th:*``` 속성을 지정하면 타임리프는 기존 속성을 ```th:*``` 로 지정한 속성으로 대체한다. 기존 속성이 없다면 새로 만든다.
+  - ```<input type="text" name="mock" th:name="userA" />``` -> 타임리프 랜더링 후 ```<input type="text" name="userA" />```
+- 속성 추가
+  - ```th:attrappend``` : 속성 값의 값에 값을 추가한다.
+  - ```th:attrprepend``` : 속성 값의 뒤에 값을 추가한다.
+  - ```th:classappend``` : class 속성에 자연스럽게 추가한다.
+- checked 처리
+  - 타임리프의 ```th:checked``` 는 값이 ```false``` 인 경우 ```cheched``` 속성 자체를 제거
