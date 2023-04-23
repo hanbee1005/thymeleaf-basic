@@ -3,7 +3,7 @@
 - [공식 메뉴얼 - 기본 기능](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
 - [공식 메뉴얼 - 스프링 통합](https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html)
 
-<details><summary>기본</summary>
+<details><summary>기본 기능</summary>
 <p>
 
 ### 타임리프 특징
@@ -150,8 +150,14 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
     </p>
 </details>
 
+<details><summary>스프링 통합 폼</summary>
+<p>
+
 ### 입력 폼 처리
 - ```th:object="${item}"``` : form에서 사용할 객체를 지정한다. 선택 변수식```*{...}```을 적용할 수 있다.
 - ```th:field="*{itemName}"```
   - ```*{itemName} == ${item.itemName}```
   - id, name, value 속성을 모두 자동으로 만들어준다.
+
+</p>
+</details>
