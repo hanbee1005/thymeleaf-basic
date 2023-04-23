@@ -3,6 +3,9 @@
 - [공식 메뉴얼 - 기본 기능](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
 - [공식 메뉴얼 - 스프링 통합](https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html)
 
+<details><summary>기본</summary>
+<p>
+
 ### 타임리프 특징
 - 서버 사이드 HTML 렌터링 (SSR)
   - 백엔드 서버에서 HTML을 동적으로 렌더링
@@ -48,7 +51,7 @@
     - 특별한 토큰:
         - No-Operation: _
   ```
-  
+
 ### 텍스트 - text, utext
 HTML의 콘텐츠(content)에 데이터를 출력하고 싶을 때
 ```html
@@ -68,9 +71,9 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - 변수 표현식: ```${...}```
 - 그리고 이 변수 표현식에는 SpringEL이라는 스프링이 제공하는 표현식을 사용할 수 있다.
 #### Object
-  - ```user.username```: user의 username을 프로퍼티 접근 -> ```user.getUsername()```과 같음
-  - ```user['username']```: 위와 같음
-  - ```user.getUsername()```: user의 getUsername()을 직접 호출
+- ```user.username```: user의 username을 프로퍼티 접근 -> ```user.getUsername()```과 같음
+- ```user['username']```: 위와 같음
+- ```user.getUsername()```: user의 getUsername()을 직접 호출
 #### List
 - ```users[0].username```: List에서 첫번째 회원을 찾고 username을 프로퍼티 접근 -> ```user[0].getUsername()```과 같음
 - ```user[0]['username']```: 위와 같음
@@ -144,3 +147,11 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 ### 템플릿 조각
 웹 페이지를 개발할 때는 공통 영역이 많이 있다. 예를 들어 상단 영역이나 하단 영역, 좌측 카테고리 등등 여러 페이지에서 함께 사용하는 영역들이 있다.
 타임리프는 이런 공통 영역을 위해 템플릿 조각과 레이아웃 기능을 지원한다.
+    </p>
+</details>
+
+### 입력 폼 처리
+- ```th:object="${item}"``` : form에서 사용할 객체를 지정한다. 선택 변수식```*{...}```을 적용할 수 있다.
+- ```th:field="*{itemName}"```
+  - ```*{itemName} == ${item.itemName}```
+  - id, name, value 속성을 모두 자동으로 만들어준다.
