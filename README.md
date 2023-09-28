@@ -176,3 +176,8 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 
 </p>
 </details>
+
+<details><summary>메시지, 국제화</summary>
+<p>
+</p>
+</details>
