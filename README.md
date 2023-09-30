@@ -179,5 +179,31 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 
 <details><summary>메시지, 국제화</summary>
 <p>
+
+### 메시지
+- 스프링 사용 시 MessageSource 라는 인터페이스를 지정해주어야 한다.
+  ```java
+  @Bean
+  public MessageSource messageSource() {
+    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+    messageSource.setBasenames("messages", "errors");
+    messageSource.setDefaultEncoding("utf-8");
+    return messageSource;
+  }
+  ```
+  - ```basenames```: 설정 파일의 이름을 지정한다.
+    - ```messages```로 지정하면 ```messages.properties``` 파일을 읽어서 사용한다.
+    - 파일의 위치는 ```/resources/messages.properties``` 에 두면 된다.
+  - ```defaultEncoding```: 인코딩 정보를 지정한다.
+- 하지만 스프링 부트를 사용하면 자동으로 MessageSource 를 빈으로 등록한다.
+- 스프링 부트 메시지 소스 설정
+  ```yaml
+  spring:
+    messages:
+      basename: messages, config.i18n.messages
+  ``` 
+  + 기본값은 ```spring.messages.basename=messages```
+  + MessageSource 를 빈으로 등록하지 않고, 스프링 부트와 관련된 별도의 설정을 하지 않으면 messages 라는 이름으로 기본 등록된다.
+  + 따라서 messages.properties, messages_ko.properties, messages_en.properties 파일만 등록하면 자동으로 인식된다.
 </p>
 </details>
