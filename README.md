@@ -205,5 +205,9 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + 기본값은 ```spring.messages.basename=messages```
   + MessageSource 를 빈으로 등록하지 않고, 스프링 부트와 관련된 별도의 설정을 하지 않으면 messages 라는 이름으로 기본 등록된다.
   + 따라서 messages.properties, messages_ko.properties, messages_en.properties 파일만 등록하면 자동으로 인식된다.
+- 애플리케이션에 적용하기
+  + thymeleaf 에서 적용 시 다음과 같이 사용할 수 있음
+    - ```<label th:text="#{page.items}"></label>```
+    - ```<p th:text="#{hello.name(${item.itemName})}"></p>```
 </p>
 </details>
