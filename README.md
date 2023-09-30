@@ -209,5 +209,11 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + thymeleaf 에서 적용 시 다음과 같이 사용할 수 있음
     - ```<label th:text="#{page.items}"></label>```
     - ```<p th:text="#{hello.name(${item.itemName})}"></p>```
+
+### 국제화
+- message 설정에 맞춰 messages.properties, messages_en.properties 등과 같이 파일을 만들어 사용할 수 있다.
+- 기본 Locale 설정은 웹 브라우저의 Accept-Language 헤더 값을 사용한다.
+- Locale 선택 방식을 변경하고 싶다면 ```LocaleResolver``` 인터페이스 구현체를 변경하면 된다.
+- 기본적으로 Accept-Language 는 ```AcceptHeaderLocaleResolver``` 를 사용한다.
 </p>
 </details>
