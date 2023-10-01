@@ -229,5 +229,10 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - 참고 **@ModelAttribute**
   + 자동으로 model 에 데이터를 추가하는데 기본적으로 type 이름으로 키가 잡히기 때문에 변경하려면
   + ```@ModelAttribute("name")```과 같이 이름을 지정해주면 된다.
+
+### 검증 v2
+- ```BindingResult``` 를 사용
+  + 위치는 ```@ModelAttribute``` 다음에 와야 한다.
+  + 기존의 error Map 과 비슷한 역할을 한다.
 </p>
 </details>
