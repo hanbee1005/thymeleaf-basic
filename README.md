@@ -253,5 +253,32 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
     - 실제 넘어오는 구현체는 ```BeanPropertyBindingResult```라는 것인데 둘다 구현하고 있으므로 ```BindingResult``` 대신에 ```Errors```를 사용해도 된다.
     - ```Errors``` 인터페이스는 단순한 오류 저장과 조회 기능을 제공한다.
     - ```BindingResult```는 여기에 더해서 추가적인 기능들을 제공한다. ```addError()```도 ```BindingResult```가 제공하므로 여기서는 ```BindingResult```를 사용하자. 주로 관례상 ```BindingResult```를 많이 사용한다.
+- ```FieldError```, ```ObjectError```
+  + ```FieldError```는 두가지 생성자를 제공한다.
+    ```java
+    public FieldError(String objectName, String field, String defaultMessage);
+    public FieldError(String objectName, String field, @Nullable Object rejectedValue, boolean bindingFailure,
+            @Nullable String[] codes, @Nullable Object[] arguments, @Nullable String defaultMessage);
+    ```
+    - 파라미터 목록
+      + ```objectName```: 오류가 발생한 객체 이름
+      + ```field```: 오류 필드
+      + ```rejectValue```: 사용자가 입력한 값(거절된 값)
+      + ```bindingFailure```: 타입 오류 같은 바인딩 실패인지, 검증 실패인지 구분 값
+      + ```codes```: 메시지 코드
+      + ```arguments```: 메시지에 사용하는 인자
+      + ```defaultMessage```: 기본 오류 메시지
+    - 오류 발생 시 사용자 입력 값 유지
+      + 사용자의 입력 데이터가 컨트롤러의 ```@ModelAttribute```에 바인딩 되는 시점에 오류가 발생하면 모델 객체에 사용자 입력 값을 유지하기 어렵다.
+      + 예를 들어 가격에 숫자가 아닌 문자가 입력된다면 가격은 Integer 타입으로 문자를 보관할 수 있는 방법이 없다.
+      + 그래서 오류가 발생한 경우 사용자 입력 값을 보관하는 별도의 방법이 필요하다. 그리고 이렇게 보관된 사용자 입력 값을 검증 오류 발생 시 다시 화면에 노출한다.
+      + ```FieldError```는 오류 발생 시 사용자 입력 값을 저장하는 기능을 제공한다.
+    - 타임리프의 사용자 입력 값 유지
+      + ```th:field="*{price}"```
+      + 타임리프의 ```th:field```는 정상 상황에는 모델의 값을 사용하지만, 오류가 발생하면 ```FieldError```에서 보관된 값을 사용해서 값을 출력한다.
+    - 스프링 바인딩 오류 처리
+      + 타입 오류로 바인딩에 실패하면 스프링은 ```FieldError```를 생성하면서 사용자가 입력한 값을 넣어둔다. 그리고 해당 오류를 ```BindingResult```에 담아서 컨트롤러를 호출한다.
+      + 따라서 타입 오류 같은 바인딩 오류 시에도 사용자의 오류 메시지를 정상 출력할 수 있다.
+  + ```ObjectError```
 </p>
 </details>
