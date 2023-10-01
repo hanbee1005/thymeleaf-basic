@@ -217,3 +217,17 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - 기본적으로 Accept-Language 는 ```AcceptHeaderLocaleResolver``` 를 사용한다.
 </p>
 </details>
+
+<details><summary>검증</summary>
+<p>
+
+### 검증 v1
+- 일반적인 상품 저장 로직은 PRG(Post - Redirect - Get) 방식으로 동작하지만
+- 검증이 맞지 않을 때 모델에 검증 데이터를 담아서 다시 폼을 보여줄 수 있도록 개발되어야 한다.
+- 참고 **Safe Navigation Operation**
+  + ```error?```는 error 가 null 일 때 NPE 가 발생하는 대신 null 로 처리하여 이후 로직이 실행되지 않도록 한다.
+- 참고 **@ModelAttribute**
+  + 자동으로 model 에 데이터를 추가하는데 기본적으로 type 이름으로 키가 잡히기 때문에 변경하려면
+  + ```@ModelAttribute("name")```과 같이 이름을 지정해주면 된다.
+</p>
+</details>
