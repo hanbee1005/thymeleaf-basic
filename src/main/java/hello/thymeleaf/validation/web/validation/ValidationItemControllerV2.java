@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,6 +26,11 @@ public class ValidationItemControllerV2 {
 
     private final ValidationItemRepository itemRepository;
     private final ItemValidator itemValidator;
+
+    @InitBinder
+    public void init(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(itemValidator);
+    }
 
     @GetMapping
     public String items(Model model) {
@@ -46,13 +53,13 @@ public class ValidationItemControllerV2 {
     }
 
     @PostMapping("/add")
-    public String addItemV(@ModelAttribute("item") ValidationItem item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public String addItemV(@Validated @ModelAttribute("item") ValidationItem item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 //        validationV1(item, bindingResult);
 //        validationV2(item, bindingResult);
 //        validationV3(item, bindingResult);
 //        validationV4(item, bindingResult);
 
-        itemValidator.validate(item, bindingResult);
+//        itemValidator.validate(item, bindingResult);
 
         // 검증에 실패하여 다시 검증 폼으로
         if(bindingResult.hasErrors()) {

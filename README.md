@@ -313,5 +313,23 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required");```과 같이 사용할 수 있다.
 - 스프링이 직접 작성한 메시지 코드
   + 스프링은 타입 오류가 발생하면 ```typeMismatch```라는 오류 코드를 사용한다.
+- ```WebDataBinder``` 사용하기
+  + 스프링의 파라미터 바인딩 역할을 해주고 검증 기능도 내부에 포함한다.
+  + ```@InitBinder```로 ```WebDataBinder```에 검증기를 추가하면 해당 컨트롤러에서는 검증기를 자동으로 적용할 수 있다.
+  + 그리고 검증할 대상 앞에 ```@Validated``` 를 추가한다.
+  + 동작 방식
+    - ```@Validated```는 검증기를 실행하라는 애노테이션이다.
+    - 이 애노테이션이 붙으면 앞서 ```WebDataBinder```에 등록한 검증기를 찾아서 실행한다.
+    - 여러 검증기를 등록하는 경우 ```supports()```를 통해 적절한 검증기를 찾아 실행하게 된다.
+  + 글로벌 설정은 다음과 같이 진행
+    ```java
+    @Configuration
+    public class validationConfig implements WebMvcConfig {
+        @Override
+        public Validator validator() {
+            return new ItemValidator();
+        }
+    }
+    ```
 </p>
 </details>

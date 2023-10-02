@@ -1,6 +1,5 @@
 package hello.thymeleaf.validation.web.validation;
 
-import hello.thymeleaf.itemservice.domain.item.Item;
 import hello.thymeleaf.validation.domain.item.ValidationItem;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -12,7 +11,7 @@ public class ItemValidator implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
         // Item == clazz || ItemSubClass == clazz
-        return Item.class.isAssignableFrom(clazz);
+        return ValidationItem.class.isAssignableFrom(clazz);
     }
 
     @Override
