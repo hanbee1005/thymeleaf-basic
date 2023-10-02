@@ -23,6 +23,7 @@ import java.util.List;
 public class ValidationItemControllerV2 {
 
     private final ValidationItemRepository itemRepository;
+    private final ItemValidator itemValidator;
 
     @GetMapping
     public String items(Model model) {
@@ -49,7 +50,9 @@ public class ValidationItemControllerV2 {
 //        validationV1(item, bindingResult);
 //        validationV2(item, bindingResult);
 //        validationV3(item, bindingResult);
-        validationV4(item, bindingResult);
+//        validationV4(item, bindingResult);
+
+        itemValidator.validate(item, bindingResult);
 
         // 검증에 실패하여 다시 검증 폼으로
         if(bindingResult.hasErrors()) {
