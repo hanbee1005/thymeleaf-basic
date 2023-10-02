@@ -285,5 +285,12 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - ```FieldError```, ```ObjectError``` 의 생성자 활용
   + ```codes```: ```required.item.itemName```를 사용해서 메시지 코드를 지정한다. 메시지 코드는 하나가 아니라 배열로 여러 값을 전달할 수 있는데 순서대로 매칭해서 처음 매칭되는 메시지를 사용한다.
   + ```arguments```: ```new Object[]{1000, 1000000}```를 사용해서 코드의 ```{0}, {1}```로 치환할 값을 전달한다.
+- ```BindingResult```의 ```rejectValue()```, ```reject()``` 활용
+  + 컨트롤러에서 ```BindingResult```는 검증해야 할 객체인 target 바로 뒤에 온다. 따라서 ```BindingResult```는 이미 본인이 검증해야할 객체인 target을 알고 있다.
+  + ```rejectValue()```, ```reject()```를 사용할 수 있다.
+  + ```field```: 오류 필드명
+  + ```errorCode```: 오류 코드(이 오류 코드는 메시지에 등록된 코드가 아니다. 뒤에서 설명할 MessageResolver를 위한 에러 코드다.)
+  + ```errorArgs```: 오류 메시지에서 ```{0}```을 치환하기 위한 값
+  + ```defaultMessage```: 오류 메시지를 찾을 수 없을 때 사용하는 기본 메시지
 </p>
 </details>
