@@ -292,5 +292,23 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```errorCode```: 오류 코드(이 오류 코드는 메시지에 등록된 코드가 아니다. 뒤에서 설명할 MessageResolver를 위한 에러 코드다.)
   + ```errorArgs```: 오류 메시지에서 ```{0}```을 치환하기 위한 값
   + ```defaultMessage```: 오류 메시지를 찾을 수 없을 때 사용하는 기본 메시지
+  + 에러 메시지 코드를 범용적으로 적어도 객체명과 필드명을 조합한 구체적인 메시지가 있는지 확인하고 없으면 범용적 메시지를 사용한다. -> 스프링은 ```MessageCodesResolver```라는 것으로 이러한 기능을 지원한다.
+- ```MessageCodesResolver```
+  + 검증 오류 코드로 메시지 코드들을 생성한다.
+  + ```MessageCodesResolver```는 인터페이스고 ```DefaultMessageCodesResolver```는 기본 구현체이다.
+  + 주로 ```ObjectError```, ```FieldError```와 함께 사용한다.
+  + 기본 메시지 생성 규칙
+    - 객체 오류
+      + code + "." + object name
+      + code
+    - 필드 오류
+      + code + "." + object name + "." + field name
+      + code + "." + field name
+      + code + "." + field type
+      + code
+  + 동작 방식
+    - ```rejectValue()```, ```reject```는 내부에서 ```MessageCodesResolver```를 사용한다. 여기에서 메시지 코드를 생성한다.
+    - ```FieldError```, ```ObjectError```의 생성자를 보면, 오류 코드를 하나가 아니라 여러 오류 코드를 가질 수 있다. ```MessageCodesResolver```를 통해서 생성된 순서대로 오류 코드를 보관한다.
+- 
 </p>
 </details>
