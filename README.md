@@ -311,5 +311,7 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
     - ```FieldError```, ```ObjectError```의 생성자를 보면, 오류 코드를 하나가 아니라 여러 오류 코드를 가질 수 있다. ```MessageCodesResolver```를 통해서 생성된 순서대로 오류 코드를 보관한다.
 - ```ValidationUtils``` 사용
   + ```ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required");```과 같이 사용할 수 있다.
+- 스프링이 직접 작성한 메시지 코드
+  + 스프링은 타입 오류가 발생하면 ```typeMismatch```라는 오류 코드를 사용한다.
 </p>
 </details>
