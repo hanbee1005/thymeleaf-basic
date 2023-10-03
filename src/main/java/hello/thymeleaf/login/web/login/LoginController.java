@@ -86,6 +86,7 @@ public class LoginController {
             // 세션이 있으면 있는 세션을 반환, 없으면 신규 세션을 생성
             HttpSession session = request.getSession();
             session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+            session.setMaxInactiveInterval(60); // 특정 세션 타임아웃 설정 (이걸 안하면 글로벌 설정이 먹힘)
 
             return "redirect:/home";
         } catch (IllegalArgumentException e) {
