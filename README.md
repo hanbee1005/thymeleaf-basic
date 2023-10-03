@@ -394,6 +394,14 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - ```ObjectError```의 경우
   + ```@ScriptAssert()```를 사용하면 된다.
   + 하지만 실제 사용하기에는 제약이 많아 복잡하기 때문에 자바 코드로 작성하는 것을 권장
-- 
+
+### Bean Validation- groups
+- 동일한 모델 객체를 등록할 때와 수정할 때 다르게 검증하는 방법
+  + Bean Validation의 groups 기능을 사용한다.
+  + Item을 직접 사용하지 않고 ItemSaveForm, ItemUpdateForm과 같은 별도의 모델 객체를 만들어서 사용한다.
+- groups 으로 사용될 인터페이스를 만들어야 함
+- groups 기능을 사용하려면 ```@Validated```를 사용해야 함
+- 복잡하기 때문에 잘 사용하지는 않음
+- 또한 실무에서는 폼 객체를 분리해서 주로 사용함
 </p>
 </details>
