@@ -403,5 +403,18 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - groups 기능을 사용하려면 ```@Validated```를 사용해야 함
 - 복잡하기 때문에 잘 사용하지는 않음
 - 또한 실무에서는 폼 객체를 분리해서 주로 사용함
+
+### HTTP 메시지 컨버터
+- ```@Valid```, ```@Validated```는 HttpMessageConverter(```@RequestBody```)에도 사용할 수 있다.
+- 참고
+  + ```@ModelAttribute```는 HTTP 요청 파라미터(URL 쿼리 스트링, POST Form)를 다룰 때 사용한다.
+  + ```@RequestBody```는 HTTP Body의 데이터를 객체로 변환할 때 사용한다. 주로 API JSON 요청을 다룰 때 사용한다.
+- API의 경우 3가지 경우를 나누어 생각해야 한다.
+  + 성공 요청: 성공
+  + 실패 요청: JSON을 객체로 생성하는 것 자체가 실패함
+  + 검증 오류 요청: JSON을 객체로 생성하는 것은 성공했고 검증에서 실패
+- 차이점 확인
+  + ```@ModelAttribute```는 필드 단위로 정교하게 바인딩이 적용된다. 특정 필드가 바인딩 되지 않아도 나머지는 정상 바인딩이 되고 Validator를 사용한 검증도 적용할 수 있다.
+  + ```@RequestBody```는 HttpMessageConverter 단계에서 JSON 데이터를 객체로 변경하지 못하면 이후 단계 자체가 진행되지 않고 예외가 발생한다. 컨트롤러도 호출되지 않고 Validator도 적용할 수 없다.
 </p>
 </details>
