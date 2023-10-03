@@ -418,3 +418,13 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```@RequestBody```는 HttpMessageConverter 단계에서 JSON 데이터를 객체로 변경하지 못하면 이후 단계 자체가 진행되지 않고 예외가 발생한다. 컨트롤러도 호출되지 않고 Validator도 적용할 수 없다.
 </p>
 </details>
+
+<details><summary>로그인 처리 1 - 쿠키, 세션</summary>
+<p>
+</p>
+</details>
+
+<details><summary>로그인 처리 2 - 필터, 인터셉터</summary>
+<p>
+</p>
+</details>
