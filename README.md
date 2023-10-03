@@ -379,5 +379,21 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
     - 실패하면 ```typeMismatch```로 ```FieldError``` 추가
   + validator 적용
     - 바인딩에 성공한 필드만 Bean Validator 적용
+
+### 에러 코드
+- Bean Validator를 적용하고 bindingResult에 등록된 검증 오류 코드를 확인하면 오류 코드가 애노테이션 이름으로 등록된다.
+- 예를 들어 ```@NotBlank``` 는
+  + NotBlank.item.itemName
+  + NotBlank.itemName
+  + NotBlank.java.lang.String
+  + NotBlank
+- 메시지 찾는 순서
+  + 생성된 메시지 코드 순서대로 ```messageSource```에서 메시지 찾기
+  + 애노테이션의 ```message```속성 사용 -> ```@NotBlank(message = "공백! {0}")```
+  + 라이브러리가 제공하는 기본 값 사용 -> 공백일 수 없습니다.
+- ```ObjectError```의 경우
+  + ```@ScriptAssert()```를 사용하면 된다.
+  + 하지만 실제 사용하기에는 제약이 많아 복잡하기 때문에 자바 코드로 작성하는 것을 권장
+- 
 </p>
 </details>
