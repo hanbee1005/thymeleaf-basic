@@ -2,6 +2,7 @@ package hello.thymeleaf.login.web.login;
 
 import hello.thymeleaf.login.domain.login.LoginService;
 import hello.thymeleaf.login.domain.member.Member;
+import hello.thymeleaf.login.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -19,13 +21,14 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class LoginController {
     private final LoginService loginService;
+    private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm") LoginForm loginForm) {
         return "/login/login/loginForm";
     }
 
-    @PostMapping("/login")
+//    @PostMapping("/login")
     public String login(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             return "/login/login/loginForm";
@@ -47,9 +50,36 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/login")
+    public String loginV2(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            return "/login/login/loginForm";
+        }
+
+        try {
+            Member loginMember = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+
+            // 로그인 성공 처리
+            // 세션 관리자를 통해 세션을 생성하고 회원 데이터를 보관
+            sessionManager.createSession(loginMember, response);
+
+            return "redirect:/home";
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            return "/login/login/loginForm";
+        }
+    }
+
+//    @PostMapping("/logout")
     public String logout(HttpServletResponse response) {
         expireCookie(response, "memberId");
+        return "redirect:/home";
+    }
+
+    @PostMapping("/logout")
+    public String logoutV2(HttpServletRequest request) {
+        sessionManager.expireSession(request);
         return "redirect:/home";
     }
 
