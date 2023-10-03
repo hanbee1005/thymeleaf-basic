@@ -1,15 +1,14 @@
 package hello.thymeleaf.validation.web.validation;
 
-import hello.thymeleaf.validation.domain.item.SaveCheck;
-import hello.thymeleaf.validation.domain.item.UpdateCheck;
 import hello.thymeleaf.validation.domain.item.ValidationItem;
 import hello.thymeleaf.validation.domain.item.ValidationItemRepository;
+import hello.thymeleaf.validation.web.validation.form.ItemSaveForm;
+import hello.thymeleaf.validation.web.validation.form.ItemUpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -44,33 +43,11 @@ public class ValidationItemControllerV4 {
         return "validation/v4/addForm";
     }
 
-//    @PostMapping("/add")
-    public String addItem(@Valid @ModelAttribute("item") ValidationItem item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
-        // 특정 필드가 아닌 복합 롤 검증
-        if (item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
-            if (resultPrice < 10000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
-            }
-        }
-
-        // 검증에 실패하여 다시 검증 폼으로
-        if(bindingResult.hasErrors()) {
-            log.info("errors = {}", bindingResult);
-            return "validation/v4/addForm";
-        }
-
-        ValidationItem savedItem = itemRepository.save(item);
-        redirectAttributes.addAttribute("itemId", savedItem.getId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v4/items/{itemId}";
-    }
-
     @PostMapping("/add")
-    public String addItemV2(@Validated(SaveCheck.class) @ModelAttribute("item") ValidationItem item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public String addItem(@Valid @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         // 특정 필드가 아닌 복합 롤 검증
-        if (item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
+        if (form.getPrice() != null && form.getQuantity() != null) {
+            int resultPrice = form.getPrice() * form.getQuantity();
             if (resultPrice < 10000) {
                 bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
             }
@@ -82,7 +59,7 @@ public class ValidationItemControllerV4 {
             return "validation/v4/addForm";
         }
 
-        ValidationItem savedItem = itemRepository.save(item);
+        ValidationItem savedItem = itemRepository.save(form.convertToValidationItem());
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
         return "redirect:/validation/v4/items/{itemId}";
@@ -95,31 +72,11 @@ public class ValidationItemControllerV4 {
         return "validation/v4/editForm";
     }
 
-//    @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @Valid @ModelAttribute("item") ValidationItem item, BindingResult bindingResult) {
-        // 특정 필드가 아닌 복합 롤 검증
-        if (item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
-            if (resultPrice < 10000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
-            }
-        }
-
-        // 검증에 실패하여 다시 검증 폼으로
-        if(bindingResult.hasErrors()) {
-            log.info("errors = {}", bindingResult);
-            return "validation/v4/editForm";
-        }
-
-        itemRepository.update(itemId, item);
-        return "redirect:/validation/v4/items/{itemId}";
-    }
-
     @PostMapping("/{itemId}/edit")
-    public String editV2(@PathVariable Long itemId, @Validated(UpdateCheck.class) @ModelAttribute("item") ValidationItem item, BindingResult bindingResult) {
+    public String edit(@PathVariable Long itemId, @Valid @ModelAttribute("item") ItemUpdateForm form, BindingResult bindingResult) {
         // 특정 필드가 아닌 복합 롤 검증
-        if (item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
+        if (form.getPrice() != null && form.getQuantity() != null) {
+            int resultPrice = form.getPrice() * form.getQuantity();
             if (resultPrice < 10000) {
                 bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
             }
@@ -131,7 +88,7 @@ public class ValidationItemControllerV4 {
             return "validation/v4/editForm";
         }
 
-        itemRepository.update(itemId, item);
+        itemRepository.update(itemId, form.convertToValidationItem());
         return "redirect:/validation/v4/items/{itemId}";
     }
 
