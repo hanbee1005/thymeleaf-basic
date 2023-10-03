@@ -361,5 +361,23 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```org.hibernate.validator.constraints.Range```
   + ```javax.validation```으로 시작하면 특정 구현에 관계 없이 제공되는 표준 인터페이스이고, ```org.hibernate.validator```이면 하이버네이트 validator 구현체를 사용할 때만 제공되는 검증 기능이다.
 
+### 동작 방식
+- 스프링부트가 ```spring-boot-starter-validation``` 라이브러리를 넣으면 자동으로 Bean Validator를 인지하고 스프링에 통합한다.
+- 스프링부트는 자동으로 글로벌 Validator를 등록한다.
+  + ```LocalValidatorFactoryBean```을 글로벌 Validator로 등록한다. 이 Validator는 ```@NotNull``` 같은 애노테이션을 보고 검증을 수행한다.
+  + 이렇게 글로벌 Validator가 적용되어 있기 때문에, ```@Valid```, ```@Validated```만 적용하면 된다.
+  + 검증 오류가 발생하면, ```FieldError```, ```ObjectError```를 생성해서 ```BindingResult```에 담아준다.
+  + 주의!
+    - 직접 글로벌 Validator를 등록하면 스프링부트는 Bean Validator를 글로벌 Validator로 등록하지 않아 애노테이션 기반의 빈 검증기가 동작하지 않는다.
+- 참고
+  + 검증 시 ```@Validated```, ```@Valid``` 둘다 사용 가능하다.
+  + ```javax.validation.@Valid```를 사용하려면 build.gradle에 의존성 추가가 필요하다.
+  + ```@Validated```는 스프링 전용 검증 애노테이션이고, ```@Valid```는 자바 표준 검증 애노테이션이다. 둘중 아무거나 사용해도 동일하게 작동하지만, ```@Validated```는 내부에 groups 라는 기능을 포함하고 있다. 
+- 검증 순서
+  + ```@ModelAttribute``` 각각의 필드에 타입 변환 시도
+    - 성공하면 다음으로 
+    - 실패하면 ```typeMismatch```로 ```FieldError``` 추가
+  + validator 적용
+    - 바인딩에 성공한 필드만 Bean Validator 적용
 </p>
 </details>
