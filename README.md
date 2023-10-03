@@ -346,5 +346,20 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + 공식 메뉴얼: https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/?v=8.0
   + 검증 애노테이션 모음: https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/?v=8.0#validator-defineconstraints-spec
 
+### 검증 애노테이션 적용
+- 의존성 추가 (build.gradle)
+  ```java
+  implementation 'org.springframework.boot:spring-boot-starter-validation'
+  ```
+- 객체에 애노테이션 추가
+  + ```@NotBlank```: 빈값 + 공백만 있는 경우를 허용하지 않는다.
+  + ```@NotNull```: null 을 허용하지 않는다.
+  + ```@Range(min = 1000, max = 1000000)```: 범위 안의 값이어야 한다.
+  + ```@Max(9999)```: 최대 9999까지만 허용한다.
+- 참고
+  + ```javax.validation.constraints.NotNull```
+  + ```org.hibernate.validator.constraints.Range```
+  + ```javax.validation```으로 시작하면 특정 구현에 관계 없이 제공되는 표준 인터페이스이고, ```org.hibernate.validator```이면 하이버네이트 validator 구현체를 사용할 때만 제공되는 검증 기능이다.
+
 </p>
 </details>
