@@ -2,6 +2,7 @@ package hello.thymeleaf.login.web.login;
 
 import hello.thymeleaf.login.domain.login.LoginService;
 import hello.thymeleaf.login.domain.member.Member;
+import hello.thymeleaf.login.web.SessionConst;
 import hello.thymeleaf.login.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -50,7 +52,7 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/login")
+//    @PostMapping("/login")
     public String loginV2(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
         if (bindingResult.hasErrors()) {
             return "/login/login/loginForm";
@@ -71,15 +73,48 @@ public class LoginController {
         }
     }
 
+    @PostMapping("/login")
+    public String loginV3(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            return "/login/login/loginForm";
+        }
+
+        try {
+            Member loginMember = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+
+            // 로그인 성공 처리
+            // 세션이 있으면 있는 세션을 반환, 없으면 신규 세션을 생성
+            HttpSession session = request.getSession();
+            session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
+            return "redirect:/home";
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            return "/login/login/loginForm";
+        }
+    }
+
 //    @PostMapping("/logout")
     public String logout(HttpServletResponse response) {
         expireCookie(response, "memberId");
         return "redirect:/home";
     }
 
-    @PostMapping("/logout")
+//    @PostMapping("/logout")
     public String logoutV2(HttpServletRequest request) {
         sessionManager.expireSession(request);
+        return "redirect:/home";
+    }
+
+    @PostMapping("/logout")
+    public String logoutV3(HttpServletRequest request) {
+        // 있는 세션을 반환, 없으면 null
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
         return "redirect:/home";
     }
 
