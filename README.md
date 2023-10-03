@@ -333,3 +333,18 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
     ```
 </p>
 </details>
+
+<details><summary>Bean Validation</summary>
+<p>
+
+### Bean Validation
+- 특정 구현체가 아니라 Bean Validation 2.0 (JSR-380) 이라는 기술 표준이다. 쉽게 말해 검증 애노테이션과 여러 인터페이스의 모음이다.
+- 마치 JPA가 표준 기술이고 그 구현체로 하이버네이트가 있는 것과 같다.
+- 일반적으로 사용하는 구현체는 하이버네이트 validation이다. (ORM과 관련 있는 것은 아니다.)
+- 하이버네이트 validation 관련 링크
+  + 공식 사이트: https://hibernate.org/validator/
+  + 공식 메뉴얼: https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/?v=8.0
+  + 검증 애노테이션 모음: https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/?v=8.0#validator-defineconstraints-spec
+
+</p>
+</details>
