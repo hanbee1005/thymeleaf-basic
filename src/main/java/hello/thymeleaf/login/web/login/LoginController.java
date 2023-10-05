@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +74,7 @@ public class LoginController {
         }
     }
 
-    @PostMapping("/login")
+//    @PostMapping("/login")
     public String loginV3(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             return "/login/login/loginForm";
@@ -89,6 +90,32 @@ public class LoginController {
             session.setMaxInactiveInterval(60); // 특정 세션 타임아웃 설정 (이걸 안하면 글로벌 설정이 먹힘)
 
             return "redirect:/home";
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            return "/login/login/loginForm";
+        }
+    }
+
+    @PostMapping("/login")
+    public String loginV4(@Valid @ModelAttribute("loginForm") LoginForm loginForm,
+                          BindingResult bindingResult,
+                          @RequestParam(defaultValue = "/") String redirectURL,
+                          HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            return "/login/login/loginForm";
+        }
+
+        try {
+            Member loginMember = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+
+            // 로그인 성공 처리
+            // 세션이 있으면 있는 세션을 반환, 없으면 신규 세션을 생성
+            HttpSession session = request.getSession();
+            session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+            session.setMaxInactiveInterval(60); // 특정 세션 타임아웃 설정 (이걸 안하면 글로벌 설정이 먹힘)
+
+            return "redirect:" + redirectURL;
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");

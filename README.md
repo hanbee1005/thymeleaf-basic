@@ -486,6 +486,7 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```destroy()```: 필터 종료 메서드, 서블릿 컨테이너가 종료될 때 호출된다.
 - 참고
   + 실무에서 HTTP 요청 시 같은 요청의 로그에 모두 같은 식별자를 자동으로 남기는 방법은 logback mdc로 검색해보자.
+  + 필터는 ```chain.doFilter(request, response)```를 호출하여 다음 필터 또는 서블릿을 호출할 때 ```ServletRequest```, ```ServletResponse```를 구현한 완전히 다른 객체로 만들어서 전달할 수 있다.
 
 ### 스프링 인터셉터
 
