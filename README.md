@@ -505,6 +505,7 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
     + ```afterCompletion```: 뷰가 랜더링된 이후에 호출, 항상 호출
   + 인터셉터는 어떤 컨트롤러(```handler```)가 호출되는지 호출 정보도 받을 수 있다.
   + 그리고 어떤 ```modelAndView```가 반환되는지 응답 정보도 받을 수 있다.
+- 스프링 인터셉터 PathPattern 참고: https://docs.spring.io/spring-framework/docs/5.0.0.M4_to_5.0.0.M5/Spring%20Framework%205.0.0.M5/org/springframework/web/util/patterns/PathPattern.html
 - 인터셉터의 장점
 
 </p>
