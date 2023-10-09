@@ -511,6 +511,7 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + 인터셉터 등록 시 pathPattern을 보다 정교하게 설정할 수 있다.
 
 ### ArgumentResolver
-
+- ```supportsParameter```: 원하는 파라미터가 맞는지 확인한다. ```@Login``` 애노테이션이 있으면서 ```Member```타입이면 ```ArgumentResolver```가 사용된다.
+- ```resolveArgument```: 컨트롤러 호출 직전에 호출되어 필요한 파라미터 정보를 생성해준다.
 </p>
 </details>

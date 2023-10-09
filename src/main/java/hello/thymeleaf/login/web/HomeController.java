@@ -2,6 +2,7 @@ package hello.thymeleaf.login.web;
 
 import hello.thymeleaf.login.domain.member.Member;
 import hello.thymeleaf.login.domain.member.MemberRepository;
+import hello.thymeleaf.login.web.argumentresolver.Login;
 import hello.thymeleaf.login.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,8 +71,18 @@ public class HomeController {
         return "login/loginHome";
     }
 
-    @GetMapping("/home")
+//    @GetMapping("/home")
     public String homeLoginV3Spring(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model) {
+        if (loginMember == null) {
+            return "login/home";
+        }
+
+        model.addAttribute("member", loginMember);
+        return "login/loginHome";
+    }
+
+    @GetMapping("/home")
+    public String homeLoginV3ArgumentResolver(@Login Member loginMember, Model model) {
         if (loginMember == null) {
             return "login/home";
         }

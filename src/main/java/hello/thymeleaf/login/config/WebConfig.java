@@ -1,15 +1,18 @@
 package hello.thymeleaf.login.config;
 
+import hello.thymeleaf.login.web.argumentresolver.LoginMemberArgumentResolver;
 import hello.thymeleaf.login.web.filter.LogFilter;
 import hello.thymeleaf.login.web.filter.LoginCheckFilter;
 import hello.thymeleaf.login.web.interceptor.LogInterceptor;
 import hello.thymeleaf.login.web.interceptor.LoginCheckInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
+import java.util.List;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -29,7 +32,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns(whitelist);
     }
 
-//    @Bean
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new LoginMemberArgumentResolver());
+    }
+
+    //    @Bean
     public FilterRegistrationBean logFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new LogFilter());
