@@ -11,3 +11,7 @@ server:
     session:
       tracking-modes: cookie
       timeout: 1800 # 1800초 (30분)
+
+  error:
+    whitelabel:
+      enabled: false # 기본 에러 페이지 보여주기 설정 끄기
