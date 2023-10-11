@@ -574,6 +574,13 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 
 <details><summary>API 예외 처리</summary>
 <p>
+
+### 스프링 기본 에러 처리
+- api도 ```BasicErrorController```를 사용할 수 있다.
+  + ```errorHtml()```: ```produces = MediaType.TEXT_HTML_VALUE``` 클라이언트 요청의 Accept 헤더 값이 text/html 인 경우에 호출하여 view 를 반환
+  + ```error()```: 그 외의 경우에 호출되고 ResponseEntity로 HTTP Body에 JSON 데이터를 반환한다.
+
+### HandlerExceptionResolver
 </p>
 </details>
 
