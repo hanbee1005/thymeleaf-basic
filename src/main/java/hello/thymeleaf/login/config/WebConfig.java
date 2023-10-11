@@ -17,7 +17,7 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private static final String[] whitelist = {"/home", "/member/add", "/login", "/logout", "/css/**", "*/ico", "/error"};
+    private static final String[] whitelist = {"/home", "/member/add", "/login", "/logout", "/css/**", "*/ico", "/error", "/error**"};
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

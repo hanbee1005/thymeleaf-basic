@@ -550,6 +550,25 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 3. WAS 오류 페이지 확인
 4. WAS(/error-page/500, dispatcherType=ERROR) -> 필터 (x) -> 서블릿 -> 인터셉터 (x) -> 컨트롤러(error-page/500) -> view
 ```
+
+### 오류 페이지
+- 지금까지 예외 처리 페이지를 만들기 위해 다음과 같은 과정을 거쳤다.
+  + WebServerCustomizer 만들고
+  + 예외 종류에 따라서 ErrorPage 추가하고
+  + 예외 처리용 컨트롤러 ErrorPageController 를 만들었다.
+- 스프링 부트는 모든 과정을 자동화 해준다.
+  + ErrorPage 를 자동으로 등록한다. 이때 /error 라는 경로로 기본 오류 페이지를 설정한다.
+  + BasicErrorController 라는 스프링 컨트롤러를 자동으로 등록한다.
+- 순서
+  + 뷰 템플릿
+    - ```resources/templates/error/500.html```
+    - ```resources/templates/error/5xx.html```
+  + 정적 리소스 (```static```, ```public```)
+    - ```resources/static/error/404.html```
+    - ```resources/static/error/400.html```
+    - ```resources/static/error/4xx.html```
+  + 적용 대상이 없을 때 뷰 이름 (```error```)
+    - ```resources/templates/error.html```
 </p>
 </details>
 
