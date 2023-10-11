@@ -538,6 +538,18 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```INCLUDE```: 서블릿에서 다른 서블릿이나 JSP의 결과를 포함할 때 ```RequestDispatcher.include(request, response);```
   + ```ASYNC```: 서블릿 비동기 호출
 - 필터는 서블릿 기술이기 때문에 기본적으로 REQUEST 일때 적용이 되고 잘 처리가 된다. (추가로 다른 타입을 설정할 수 있음)
+
+### 서블릿 예외 처리 - 인터셉터
+- excludePathPatterns 에 에러 페이지 경로를 추가하여 내부 호출에서는 인터셉터가 실행되지 않도록 처리할 수 있다.
+
+### 전체 에러 흐름 정리
+- 필터와 인터셉터 등록 시 설정을 통해 내부 호출 시에는 필터와 인터셉터를 실행하지 않도록 할 수 있다. (기본적으로 흐름에 맞게 실행됨)
+```
+1. WAS(/error-ex, dispatcherType=REQUEST) -> 필터 -> 서블릿 -> 인터셉터 -> 컨트롤러
+2. WAS(여기까지 전파) <- 필터 <- 서블릿 <- 인터셉터 <- 컨트롤러(예외 발생)
+3. WAS 오류 페이지 확인
+4. WAS(/error-page/500, dispatcherType=ERROR) -> 필터 (x) -> 서블릿 -> 인터셉터 (x) -> 컨트롤러(error-page/500) -> view
+```
 </p>
 </details>
 
