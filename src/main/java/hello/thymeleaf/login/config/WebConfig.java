@@ -17,7 +17,7 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private static final String[] whitelist = {"/home", "/member/add", "/login", "/logout", "/css/**", "*/ico", "/error", "/error**"};
+    private static final String[] whitelist = {"/home", "/member/add", "/login", "/logout", "/css/**", "*/ico", "/error"};
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -28,7 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
-                .addPathPatterns("/**")
+                .addPathPatterns("/login/**")
                 .excludePathPatterns(whitelist);
     }
 
