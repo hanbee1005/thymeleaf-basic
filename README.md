@@ -581,6 +581,16 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```error()```: 그 외의 경우에 호출되고 ResponseEntity로 HTTP Body에 JSON 데이터를 반환한다.
 
 ### HandlerExceptionResolver
+- 스프링 MVC는 컨트롤러(핸들러) 밖으로 예외가 던져진 경우 예외를 해결하고 동작을 새로 정의할 수 있는 방법을 제공한다.
+- 컨트롤러 밖으로 던져진 예외를 해결하고 동작 방식을 변경하고 싶으면 HandlerExceptionResolver를 사용하면 된다.
+- 반환 값에 따라 ```DispatcherServlet```의 동작 방식은 다음과 같다.
+  + 빈 ModelAndView: 뷰를 랜더링하지 않고 정상 흐름으로 서블릿이 리턴된다.
+  + ModelAndView 지정: ```ModelAndView```에 ```View```, ```Model``` 등의 정보를 지정해서 반환하면 뷰를 랜더링한다.
+  + null: ```null```을 반환하면 다음 ```ExceptionResolver```를 찾아서 실행한다. 만약 처리할 수 있는 ```ExceptionResolver```가 없으면 예외 처리가 안되고 기존에 발생한 예외를 서블릿 밖으로 던진다.
+- 등록 시
+  + ```configureHandlerExceptionResolvers(...)```를 사용하면 스프링이 기본으로 등록하는 ```ExceptionResolver```가 제거되므로 주의
+  + ```extendHandlerExceptionResolvers```를 사용하자
+- 
 </p>
 </details>
 
