@@ -621,6 +621,13 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```ExceprionHandlerExceptionResolver```는 해당 컨트롤러에 ```IllegalArgumentException```을 처리할 수 있는 ```@ExceptionHandler```가 있는지 확인한다.
   + ```illegalExceptionHandler()```를 실행한다. ```@RestController```이므로 ```illegalExceptionHandler()```에도 ```@ResponseBody```가 적용되어 HTTP 컨버터가 사용되고 JSON으로 반환된다.
   + ```@ResponseStatus(HttpStatus.BAD_REQUEST)```를 지정했으므로 HTTP 상태 코드 400으로 응답한다.
+- 참고: https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-servlet/exceptionhandlers.html
+
+### @ControllerAdvice
+- 대상으로 지정한 여러 컨트롤러에 ```@ExceptionHandler```, ```@InitBinder``` 기능을 부여해주는 역할을 한다.
+- ```@ControllerAdvice```에 대상을 지정하지 않으면 모든 컨트롤러에 적용된다. (글로벌 적용)
+- ```@RestControllerAdvice```는 ```@ControllerAdvice```와 같고 ```@ResponseBody```가 추가되어 있다.
+- 참고: https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-advice.html
 </p>
 </details>
 
