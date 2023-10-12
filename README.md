@@ -631,3 +631,18 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 </p>
 </details>
 
+<details><summary>스프링 타입 컨버터</summary>
+<p>
+
+### Converter
+- ```org.springframework.core.convert.converter.Converter``` 를 사용하면 된다.
+- 참고로 스프링은 다양한 방식의 타입 컨버터를 제공한다.
+  + ```Converter```: 기본 타입 컨버터
+  + ```ConverterFactory```: 전체 클래스 계층 구조가 필요할 때
+  + ```GenericConverter```: 정교한 구현, 대상 필드의 애노테이션 정보 사용 가능
+  + ```ConditionalGenericConverter```: 특정 조건이 참인 경우에만 실행
+
+### ConversionService
+</p>
+</details>
+
