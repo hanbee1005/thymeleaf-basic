@@ -604,6 +604,23 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - DefaultHandlerExceptionResolver
   + 스프링 내부 기본 예외를 처리한다.
   + 우선 순위가 가장 낮다.
+
+### @ExceptionHandler
+- HTML 화면 오류 vs API 오류
+  + 웹 브라우저에 HTML 화면을 제공할 때는 오류가 발생하면 ```BasicErrorController```를 사용하는게 편하다.
+  + API 는 예외에 따라 응답 데이터가 다양해질 수 있어 처리가 어렵다.
+    - ```HandlerExceptionResolver```를 떠올려보면 ```ModelAndView```를 반환해야 했다. 이것은 API 응답에 필요하지 않다.
+    - API 응답을 위해 HttpServletResponse 에 직접 응답 데이터를 넣어주었다. 이것은 매우 불편하다.
+    - 특정 컨트롤러에서만 발생하는 예외를 별도로 처리하기 어렵다.
+    - 따라서 스프링은 ```ExceptionHandlerExceptionResolver```를 통해 처리되는 ```@ExceptionHandler```를 제공한다.
+- 해당 컨트롤러에서 발생한 에러를 처리한다.
+- 지정한 예외와 그 자식 예외까지 같이 처리한다. 나눠져 있다면 자식 예외(더 자세한 예외)가 더 우선적으로 처리된다.
+- 실행 흐름 예시
+  + 컨트롤러를 호출한 결과 ```IllegalArgumentException``` 예외가 컨트롤러 밖으로 던져진다.
+  + 예외가 발생했으므로 ```ExceptionResolver```가 작동한다. 가장 우선순위가 높은 ```ExceprionHandlerExceptionResolver```가 실행된다.
+  + ```ExceprionHandlerExceptionResolver```는 해당 컨트롤러에 ```IllegalArgumentException```을 처리할 수 있는 ```@ExceptionHandler```가 있는지 확인한다.
+  + ```illegalExceptionHandler()```를 실행한다. ```@RestController```이므로 ```illegalExceptionHandler()```에도 ```@ResponseBody```가 적용되어 HTTP 컨버터가 사용되고 JSON으로 반환된다.
+  + ```@ResponseStatus(HttpStatus.BAD_REQUEST)```를 지정했으므로 HTTP 상태 코드 400으로 응답한다.
 </p>
 </details>
 
