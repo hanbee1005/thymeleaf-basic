@@ -590,7 +590,9 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - 등록 시
   + ```configureHandlerExceptionResolvers(...)```를 사용하면 스프링이 기본으로 등록하는 ```ExceptionResolver```가 제거되므로 주의
   + ```extendHandlerExceptionResolvers```를 사용하자
-- 
+- 서블릿 컨테이너까지 예외를 던지지 않고 미리 처리하여 정상 응답처럼 전달하는 방식이다.
+
+### 스프링이 제공하는 EXceptionResolver
 </p>
 </details>
 
