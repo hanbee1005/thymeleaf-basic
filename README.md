@@ -592,7 +592,17 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```extendHandlerExceptionResolvers```를 사용하자
 - 서블릿 컨테이너까지 예외를 던지지 않고 미리 처리하여 정상 응답처럼 전달하는 방식이다.
 
-### 스프링이 제공하는 EXceptionResolver
+### 스프링이 제공하는 ExceptionResolver
+- ExceptionHandlerExceptionResolver
+  + ```@ExceptionHandler```를 처리한다.
+- ResponseStatusExceptionResolver
+  + HTTP 상태 코드를 지정해준다.
+  + 다음 두가지 예외를 처리한다.
+    - ```@ResponseStatus```가 달려있는 예외
+    - ```ResponseStatusException``` 예외
+- DefaultHandlerExceptionResolver
+  + 스프링 내부 기본 예외를 처리한다.
+  + 우선 순위가 가장 낮다.
 </p>
 </details>
 

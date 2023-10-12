@@ -17,6 +17,6 @@ server:
       enabled: false # 기본 에러 페이지 보여주기 설정 끄기
 
 #    include-exception: true
-#    include-message: always
+    include-message: always
 #    include-stacktrace: always
 #    include-binding-errors: always
