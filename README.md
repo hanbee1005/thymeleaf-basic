@@ -643,6 +643,14 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
   + ```ConditionalGenericConverter```: 특정 조건이 참인 경우에만 실행
 
 ### ConversionService
+- 스프링이 제공하는 개별 컨버터를 모아두고 그것들을 묶어서 편리하게 사용할 수 있는 기능
+- 등록과 사용을 분리
+  + 등록 시점에만 converter를 알면되고
+  + 사용하는 입장에서는 의존관계 주입을 받아서 사용하기만 하면 된다.
+- ```DefaultConversionService```는 다음 두가지 인터페이스를 구현하여 인터페이스 분리 원칙(ISP)을 적용했다.
+  + ```ConversionService```: 컨버터 사용에 초점
+  + ```ConversionRegistry```: 컨버터 등록에 초점
+- 실제 스프링은 ```@RequestParam``` 등에서 ```ConversionService```를 사용한다.
 </p>
 </details>
 
