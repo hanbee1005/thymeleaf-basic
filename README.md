@@ -655,6 +655,13 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 ### 스프링에 converter 적용
 - ```@RequestParam```은 ```@RequestParam```을 처리하는 ```ArgumentResolver```인 ```RequestParamMethodArgumentResolver```에서 ```ConversionService```를 사용해서 타입을 변환한다.
 - 부모 클래스와 다양한 외부 클래스를 호출하는 등 복잡한 내부 과정을 거치기 때문에 대략 이렇게 처리되는 것으로 이해해도 충분...
+
+### 뷰 템플릿에 컴버터 적용
+- 변수 표현식: ```${}```
+  + 문자로 출력 (기본적인 것은 자동으로 지원)
+- 컨버전 서비스 적용: ```${{}}```
+  + 등록한 컨버터가 적용
+- form 의 th:field 에는 자동으로 컨버터가 적용 (적용을 원하지 않으면 th:value 사용해야 함)
 </p>
 </details>
 
