@@ -668,6 +668,9 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - 객체를 특정한 포맷에 맞춰 문자로 출력하거나 또는 그 반대의 역할을 하는 것에 특화된 기능
 - ```String print(T object, Locale locale)```: 객체를 문자로 변경한다.
 - ```T parse(String text, Locale locale)```: 문자를 객체로 변경한다.
+
+### 포맷터를 지원하는 컨버전 서비스
+- 스프링 부트는 ```DefaultFormattingConversionService```를 상속 받은 ```WebConversionService```를 내부에서 사용한다.
 </p>
 </details>
 
