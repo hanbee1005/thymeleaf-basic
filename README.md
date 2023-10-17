@@ -662,6 +662,12 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 - 컨버전 서비스 적용: ```${{}}```
   + 등록한 컨버터가 적용
 - form 의 th:field 에는 자동으로 컨버터가 적용 (적용을 원하지 않으면 th:value 사용해야 함)
+
+
+### 포맷터 - Formatter
+- 객체를 특정한 포맷에 맞춰 문자로 출력하거나 또는 그 반대의 역할을 하는 것에 특화된 기능
+- ```String print(T object, Locale locale)```: 객체를 문자로 변경한다.
+- ```T parse(String text, Locale locale)```: 문자를 객체로 변경한다.
 </p>
 </details>
 
