@@ -687,3 +687,23 @@ HTML의 태그 속성이 아니라 HTML 콘텐츠 영역 안에서 데이터를 
 </p>
 </details>
 
+<details><summary>파일 업로드</summary>
+<p>
+
+### 서블릿과 파일 업로드 1
+- 멀티파트 사용 옵션
+  ```properties
+  spring.servlet.multipart.max-file-size=1MB
+  spring.servlet.multipart.max-request-size=10MB
+  ```
+  + 큰 파일을 무제한 업로드하게 둘 수 없으므로 업로드 사이즈를 제한할 수 있다.
+  + 사이즈를 넘으면 예외(```SizeLimitExceededException```)가 발생한다.
+  + ```max-file-size```: 파일 하나의 최대 사이즈, 기본 1MB
+  + ```max-request-size```: 멀티파트 요청 하나에 여러 파일을 업로드할 수 있는데, 그 전체 합이다. 기본 10MB
+- ```spring.servlet.multipart.enabled=false```
+  + 멀티파트와 관련된 처리를 하지 않음
+  + 기본 값은 true
+
+</p>
+</details>
+
