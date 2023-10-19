@@ -20,3 +20,6 @@ server:
     include-message: always
 #    include-stacktrace: always
 #    include-binding-errors: always
+
+file:
+  dir: /Users/hanbee/dev/lectures/springmvc2/file/
